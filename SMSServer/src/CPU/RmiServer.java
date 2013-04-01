@@ -99,7 +99,7 @@ public class RmiServer extends UnicastRemoteObject
 			String description, int severity, String callno, int errorCode,
 			String errorDescription) {
 		System.out.println("Error report received");
-		System.out.println(incidentName + location + type + description + callno + errorDescription);
+		System.out.println(incidentName + location + type + description + callno + errorDescription+Integer.toString(errorCode));
 		
 	}
 

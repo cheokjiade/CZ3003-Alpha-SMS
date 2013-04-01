@@ -95,8 +95,8 @@ public class LoadBalancer implements ClientMessageReceived{
 	
 	/**
 	 * on message received, clients score is updated.
-	 * @param uniqueId
-	 * @param smsMessage object
+	 * @param uniqueId unique identifier of client
+	 * @param smsMessage object concerning details sent by client.
 	 * 
 	 */
 	@Override
@@ -134,8 +134,8 @@ public class LoadBalancer implements ClientMessageReceived{
 	
 	/**
 	 * Creates the SMSMessage object from the CPUMessage object created by our RMIServer.
-	 * @param cpuMessage
-	 * @return
+	 * @param cpuMessage details of incident.
+	 * @return true.
 	 * 
 	 * 
 	 */
@@ -146,12 +146,12 @@ public class LoadBalancer implements ClientMessageReceived{
 	}
 	/**
 	 * A method for creating an SMSMessage via individual fields. Used for testing purposes.
-	 * @param incidentId
-	 * @param location
-	 * @param type
-	 * @param description
-	 * @param callerNumber
-	 * @return
+	 * @param incidentId incident of an id.
+	 * @param location location of incident.
+	 * @param type type of incident.
+	 * @param description incident description.
+	 * @param callerNumber phone number of caller who made report.
+	 * @return true.
 	 * 
 	 */
 	public boolean createMessageToSMS(int incidentId, String location, String type, String description, String callerNumber){
@@ -162,18 +162,20 @@ public class LoadBalancer implements ClientMessageReceived{
 	
 	/**
 	 * Called when sending an error report to CPU.
-	 * @param smsMessage
-	 * @return
+	 * @param linkedMessage object containing details of incident & error message.
+	 * @return true.
 	 * 
 	 */
 	public boolean sendErrorReport(MessageLink linkedMessage){
+		linkedMessage.getSmsMessage().setType(2);
+		linkedMessage.getSmsMessage().setMessage("message cannot be delivered");
 		errorClient.sendError(linkedMessage.getCpuMessage(), linkedMessage.getSmsMessage());
 		return true;
 	}
 	
 	/**
 	 * Sends an SMSMessage to a client. And modifies the score. Used for testing.
-	 * @param smsMessage
+	 * @param smsMessage sends message to a client.
 	 * 
 	 */
 	private synchronized boolean sendMessageOut(SMSMessage smsMessage) {
@@ -195,9 +197,9 @@ public class LoadBalancer implements ClientMessageReceived{
 	}
 	/**
 	 * The method that will be called by the RMI server when CPU passes us an incident.
-	 * @param smsMessage
-	 * @param cpuMessage
-	 * @return always returns true
+	 * @param smsMessage send message to client.
+	 * @param cpuMessage details of incident.
+	 * @return always returns true.
 	 * 
 	 * 
 	 */
@@ -207,6 +209,8 @@ public class LoadBalancer implements ClientMessageReceived{
 			//TODO no connected client. add to pending queue or something
 			//TODO send error message to CPU
 			System.out.println("error");
+			smsMessage.setMessage("No available clients");
+			smsMessage.setType(1);
 			errorClient.sendError(cpuMessage, smsMessage);
 			
 		}
@@ -236,8 +240,8 @@ public class LoadBalancer implements ClientMessageReceived{
 	}
 	/**
 	 * Updates the list of recipients. Values are currently hard coded.
-	 * @param jsonString
-	 * @return
+	 * @param jsonString array of agencies formatted into string.
+	 * @return true.
 	 * 
 	 */
 	public boolean updateRecipientList(String jsonString){

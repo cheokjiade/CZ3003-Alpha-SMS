@@ -118,6 +118,14 @@ public class SMSMessage implements Serializable {
 		return delivered;
 	}
 
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	public void setDelivered(int delivered) {
 		this.delivered = delivered;
 	}

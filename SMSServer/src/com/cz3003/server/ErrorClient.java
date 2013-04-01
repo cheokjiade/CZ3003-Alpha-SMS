@@ -26,7 +26,7 @@ public class ErrorClient {
     public void sendError(CPUMessage cpuMessage, SMSMessage smsMessage) { 
         try { 
         	ISMS obj = (ISMS)Naming.lookup("CPUSMS");
-            obj.sendErrorReport(cpuMessage.getTimeStamp(), cpuMessage.getIncidentName(), cpuMessage.getLocation(), cpuMessage.getType(), cpuMessage.getLongitude(), cpuMessage.getLatitude(), cpuMessage.getDescription(), cpuMessage.getSeverity(), cpuMessage.getCallno(), 2, smsMessage.getMessage()); 
+            obj.sendErrorReport(cpuMessage.getTimeStamp(), cpuMessage.getIncidentName(), cpuMessage.getLocation(), cpuMessage.getType(), cpuMessage.getLongitude(), cpuMessage.getLatitude(), cpuMessage.getDescription(), cpuMessage.getSeverity(), cpuMessage.getCallno(), smsMessage.getType(), smsMessage.getMessage()); 
         } catch (Exception e) { 
             System.err.println("RmiClient exception: " + e); 
             e.printStackTrace(); 

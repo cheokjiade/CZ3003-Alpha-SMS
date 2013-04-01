@@ -2,3 +2,4 @@ SMSClient/bin/
 SMSClient/gen/
 SMSServer/build/
 *.apk
+*.class

@@ -140,7 +140,8 @@ public class LoadBalancer implements ClientMessageReceived{
 	 * 
 	 */
 	public boolean createMessageToSMS(CPUMessage cpuMessage){
-		sendMessageOut(new SMSMessage(SMSMessage.MESSAGETOSMS, cpuMessage.getDescription(), ++incidentID, this.recipients.selectNumberBasedOnIncidentType(cpuMessage.getType())), cpuMessage);
+		String messageContents = cpuMessage.getType() + " @ " + cpuMessage.getLocation() + "\nDescription: " + cpuMessage.getDescription() + "\nReported by " + cpuMessage.getCallno() + " @ " + (new SimpleDateFormat("HH:mm:ss")).format(cpuMessage.getTimeStamp()) + "\nRef No.: " + Integer.toString(incidentID+1);
+		sendMessageOut(new SMSMessage(SMSMessage.MESSAGETOSMS, messageContents, ++incidentID, this.recipients.selectNumberBasedOnIncidentType(cpuMessage.getType())), cpuMessage);
 		return true;
 	}
 	/**

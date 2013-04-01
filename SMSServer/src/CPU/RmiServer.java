@@ -48,7 +48,11 @@ public class RmiServer extends UnicastRemoteObject
 			Scanner scan = new Scanner(System.in);
 			while(true){
 				System.out.print("Enter message : ");
-				server.getMessage(scan.nextLine());
+				String inputmsg = scan.nextLine();
+				if(inputmsg.equals("loadtest")){
+					server.loadTest();
+				}else
+				server.getMessage(inputmsg);
 			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -102,7 +106,7 @@ public class RmiServer extends UnicastRemoteObject
 	@Override
 	public ArrayList<AgencyNumbers> sendAgencyNumbers() {
 		ArrayList<AgencyNumbers> an = new ArrayList<AgencyNumbers>();
-		an.add(new AgencyNumbers("SCDF", "92390354", "FIRE"));
+		an.add(new AgencyNumbers("SCDF", "97368902", "FIRE"));
 		an.add(new AgencyNumbers("SCDF", "92390354", "flood"));
 		an.add(new AgencyNumbers("SCDF", "92390354", "earthquake"));
 		System.out.println("Sending agency numbers.");
@@ -110,6 +114,12 @@ public class RmiServer extends UnicastRemoteObject
 	}
 	
 	SMSInterface obj = null; 
+	
+	public void loadTest(){
+		for (int i=1;i<10;i++){
+			getMessage("This is message number " + Integer.toString(i));
+		}
+	}
 	 
     public void getMessage(String msg) { 
         try { 

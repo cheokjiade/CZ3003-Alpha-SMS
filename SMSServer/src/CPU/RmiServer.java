@@ -106,9 +106,9 @@ public class RmiServer extends UnicastRemoteObject
 	@Override
 	public ArrayList<AgencyNumbers> sendAgencyNumbers() {
 		ArrayList<AgencyNumbers> an = new ArrayList<AgencyNumbers>();
-		an.add(new AgencyNumbers("SCDF", "97368902", "FIRE"));
-		an.add(new AgencyNumbers("SCDF", "92390354", "flood"));
-		an.add(new AgencyNumbers("SCDF", "92390354", "earthquake"));
+		an.add(new AgencyNumbers("SCDF", "91376286", "FIRE"));
+		an.add(new AgencyNumbers("SCDF", "81127957", "flood"));
+		an.add(new AgencyNumbers("SCDF", "97368902", "earthquake"));
 		System.out.println("Sending agency numbers.");
 		return an;
 	}
@@ -116,8 +116,18 @@ public class RmiServer extends UnicastRemoteObject
 	SMSInterface obj = null; 
 	
 	public void loadTest(){
-		for (int i=1;i<10;i++){
-			getMessage("This is message number " + Integer.toString(i));
+		for (int i=0;i<100;i++){
+			//getMessage("This is message number " + Integer.toString(i));
+			try { 
+	            obj = (SMSInterface)Naming.lookup("SMS");
+	            obj.sendOutSMS("fire", "SOFTWARE ENG LAB", "fire", 1, 1, new Date(), "This is message number " + Integer.toString(i) + " of Tiffany declaring her love for zhi cheng.", 1, "123456789"); 
+	            obj.sendOutSMS("flood", "somewhere", "flood", 1, 1, new Date(), "This is message number " + Integer.toString(i), 1, "123456789"); 
+	        } catch (Exception e) { 
+	            System.err.println("RmiClient exception: " + e); 
+	            e.printStackTrace(); 
+	 
+	            //return e.getMessage();
+	        } 
 		}
 	}
 	 

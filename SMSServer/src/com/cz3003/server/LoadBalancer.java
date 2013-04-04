@@ -1,4 +1,5 @@
 package com.cz3003.server;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.text.SimpleDateFormat;
@@ -39,16 +40,22 @@ public class LoadBalancer implements ClientMessageReceived{
 //		if (System.getSecurityManager() == null) {
 //            System.setSecurityManager(new RMISecurityManager());
 //        }
-		try { //special exception handler for registry creation
-		      LocateRegistry.createRegistry(1099); 
-		      System.out.println("java RMI registry created.");
-		  } catch (RemoteException e) {
-		      //do nothing, error means registry already exists
-		      System.out.println("java RMI registry already exists.");
-		  }
+//		try { //special exception handler for registry creation
+//		      LocateRegistry.createRegistry(1099); 
+//		      System.out.println("java RMI registry created.");
+//		  } catch (RemoteException e) {
+//		      //do nothing, error means registry already exists
+//		      System.out.println("java RMI registry already exists.");
+//		  }
 		LoadBalancer server = new LoadBalancer();
 		try {
 			SMSServer sms = new SMSServer(server);
+			try {
+				java.rmi.Naming.rebind("SMS", sms);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			sms.setLoadBalancer(server);
             //java.rmi.Naming.rebind("SMS", sms);
 			//Remote stub = (Remote) UnicastRemoteObject.exportObject(sms, 1076);

@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import javax.management.remote.rmi.RMIServer;
 
-import com.cz3003.interfaces.SMSInterface;
 
 
 import CPU.AgencyNumbers;

@@ -1,4 +1,4 @@
-package com.cz3003.interfaces;
+package CPU;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

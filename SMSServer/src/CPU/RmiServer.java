@@ -105,7 +105,7 @@ public class RmiServer extends UnicastRemoteObject
 	@Override
 	public ArrayList<AgencyNumbers> sendAgencyNumbers() {
 		ArrayList<AgencyNumbers> an = new ArrayList<AgencyNumbers>();
-		an.add(new AgencyNumbers("SCDF", "91376286", "FIRE"));
+		an.add(new AgencyNumbers("SCDF", "81127957", "FIRE"));
 		an.add(new AgencyNumbers("SCDF", "81127957", "flood"));
 		an.add(new AgencyNumbers("SCDF", "97368902", "earthquake"));
 		System.out.println("Sending agency numbers.");

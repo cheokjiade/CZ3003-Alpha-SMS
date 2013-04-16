@@ -18,7 +18,7 @@ public class MessageLink {
 		super();
 		this.cpuMessage = cpuMessage;
 		this.smsMessage = smsMessage;
-		smsTimer = new SMSTimer(15, this, cpuMessage, smsMessage, messageLinkController);
+		smsTimer = new SMSTimer(25, this, cpuMessage, smsMessage, messageLinkController);
 	}
 	/**
 	 * 
